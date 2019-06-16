@@ -80,21 +80,11 @@ If you find it useful, the ``data/cache`` folder created on my side is also shar
   ln -s ../../../data/voc_2007_trainval+voc_2012_trainval ./default
   cd ../../..
   ```
-
-3. Demo for testing on custom images
-  ```Shell
-  # at repository root
-  GPU_ID=0
-  CUDA_VISIBLE_DEVICES=${GPU_ID} ./tools/demo.py
-  ```
-  **Note**: Resnet101 testing probably requires several gigabytes of memory, so if you encounter memory capacity issues, please install it with CPU support only. Refer to [Issue 25](https://github.com/endernewton/tf-faster-rcnn/issues/25).
-
-4. Test with pre-trained Resnet101 models
+3. Test with pre-trained Resnet101 models
   ```Shell
   GPU_ID=0
   ./experiments/scripts/test_repulsionloss.sh $GPU_ID pascal_voc_0712 res101
   ```
-  **Note**: If you cannot get the reported numbers (79.8 on my side), then probably the NMS function is compiled improperly, refer to [Issue 5](https://github.com/endernewton/tf-faster-rcnn/issues/5).
 
 ### Train your own model
 1. Download pre-trained models and weights. The current code support VGG16 and Resnet V1 models. Pre-trained models are provided by slim, you can get the pre-trained models [here](https://github.com/tensorflow/models/tree/master/research/slim#pre-trained-models) and set them in the ``data/imagenet_weights`` folder. For example for VGG16 model, you can set up like:
@@ -126,7 +116,6 @@ If you find it useful, the ``data/cache`` folder created on my side is also shar
   ./experiments/scripts/train_repulsionloss.sh 0 pascal_voc vgg16
   ./experiments/scripts/train_repulsionloss.sh 1 coco res101
   ```
-  **Note**: Please double check you have deleted soft link to the pre-trained models before training. If you find NaNs during training, please refer to [Issue 86](https://github.com/endernewton/tf-faster-rcnn/issues/86). Also if you want to have multi-gpu support, check out [Issue 121](https://github.com/endernewton/tf-faster-rcnn/issues/121).
 
 3. Visualization with Tensorboard
   ```Shell
