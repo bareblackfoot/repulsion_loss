@@ -50,6 +50,26 @@ else
 fi
 set -x
 
+if [[ ! -z  ${EXTRA_ARGS_SLUG}  ]]; then
+OMP_NUM_THREADS=1  CUDA_VISIBLE_DEVICES=${GPU_ID} time python ./tools/test_net.py \
+    --imdb ${TEST_IMDB} \
+    --model ${NET_FINAL} \
+    --cfg experiments/cfgs/${NET}.yml \
+    --tag ${EXTRA_ARGS_SLUG} \
+    --net ${NET} \
+    --set ANCHOR_SCALES ${ANCHORS} ANCHOR_RATIOS ${RATIOS} \
+          ${EXTRA_ARGS}
+else
+OMP_NUM_THREADS=1  CUDA_VISIBLE_DEVICES=${GPU_ID} time python ./tools/test_net.py \
+    --imdb ${TEST_IMDB} \
+    --model ${NET_FINAL} \
+    --cfg experiments/cfgs/${NET}.yml \
+    --net ${NET} \
+    --set ANCHOR_SCALES ${ANCHORS} ANCHOR_RATIOS ${RATIOS} \
+          ${EXTRA_ARGS}
+fi
+
+
 LOG="experiments/logs/idnet_${NET}_${TRAIN_IMDB}_${EXTRA_ARGS_SLUG}.txt.`date +'%Y-%m-%d_%H-%M-%S'`"
 exec &> >(tee -a "$LOG")
 echo Logging output to "$LOG"

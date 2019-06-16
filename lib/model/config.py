@@ -164,13 +164,6 @@ __C.TRAIN.USE_ALL_GT = True
 #
 __C.TEST = edict()
 
-# LDDP
-__C.TEST.PROB_THRESH = 0.4
-__C.TEST.SIM_POWER = 4.0
-__C.TEST.MC_NMS = 0.7
-__C.TEST.DPP_NMS = 0.001
-__C.TEST.SCORE_THRESH = 0.05
-# END_LDDP
 # Scale to use during testing (can NOT list multiple scales)
 # The scale is the pixel size of an image's shortest side
 __C.TEST.SCALES = (600,)

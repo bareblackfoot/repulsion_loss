@@ -21,9 +21,6 @@ from nets.resnet_v1 import resnetv1
 from nets.mobilenet_v1 import mobilenetv1
 
 import os
-# os.environ["CUDA_VISIBLE_DEVICES"] = "1"
-# os.environ["OMP_NUM_THREADS"] = "1"
-# os.environ["OPENBLAS_NUM_THREADS"] = "1"
 def parse_args():
   """
   Parse input arguments
@@ -130,19 +127,5 @@ if __name__ == '__main__':
     sess.run(tf.global_variables_initializer())
     print('Loaded.')
 
-  # if args.test_method == "nms":
-  # test_nms_overlap(sess,net,imdb, args.overlap_thresh)
-  # elif args.test_method =="ldpp":
-  #     test_ldpp_overlap(sess,net,imdb, args.overlap_thresh)
-  # if args.output == 'frcnn':
-  # visualize_net(sess, net, imdb, filename, max_per_image=args.max_per_image)
-  # elif args.output == 'lddp':
-  #   lddp_visualize_net(sess, net, imdb, filename, max_per_image=args.max_per_image)
-  # test_oracle(sess, net, imdb, args.overlap_thresh)
-  # lddp_visualize_net(sess, net, imdb, filename, max_per_image=args.max_per_image)
-  # visualize_net(sess, net, imdb, filename, max_per_image=args.max_per_image)
-  # visualize_score(sess, net, imdb, filename, max_per_image=args.max_per_image)
-  # test_ldpp_overlap(sess, net, imdb, args.overlap_thresh)
   test_net(sess, net, imdb, filename, max_per_image=args.max_per_image)
-  # dpp_test_net(sess, net, imdb,filename, max_per_image=args.max_per_image)
   sess.close()

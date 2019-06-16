@@ -20,18 +20,11 @@ from layer_utils.proposal_top_layer import proposal_top_layer
 from layer_utils.anchor_target_layer import anchor_target_layer
 from layer_utils.proposal_target_layer import proposal_target_layer
 from utils.visualization import draw_bounding_boxes
-from utils.myutils import FindDuplicates, my_clip_boxes, decode_new, IoG
+from utils.myutils import IoG
 from model.config import cfg
 from utils.cython_bbox import bbox_overlaps
 from model.bbox_transform import clip_boxes, bbox_transform_inv, clip_boxes_tf, bbox_transform_inv_tf
 from utils.tf_utils import zerof, zerof2
-
-from utils.visualization import draw_paper_boxes
-import matplotlib.pyplot as plt
-import time
-import cv2
-# from copy import deepcopy
-
 
 class Network(object):
   def __init__(self):
@@ -525,53 +518,6 @@ class Network(object):
                                                                         self.G,
                                                                         train_op],
                                                                        feed_dict=feed_dict)
-    # print(G_debug)
-    # boxes = rois_debug[:, 1:5]
-    # box_deltas = np.reshape(bbox_pred_debug, [bbox_pred_debug.shape[0], -1])
-    # pred_boxes = bbox_transform_inv(boxes, box_deltas)
-    # pred_boxes = clip_boxes(pred_boxes, blobs['im_info'][:2])
-    # candi_box = pred_boxes[:,4:]*blobs['im_info'][2]
-    # candi_score = cls_prob_debug[:,1:]
-    # idx = np.max(candi_score,axis=1)>0.6
-    # candi_box = candi_box[idx,:]
-    # candi_score = candi_score[idx]
-    # # print (candi)
-    # over_thresh2 = np.where(candi_score>0.6)
-    # over_thresh = np.where(candi_score>0.3)
-    # if (len(over_thresh[0]) != len(candi_score)):
-    #   dupli = np.array(FindDuplicates(list(over_thresh[0])))
-    #   dupli_score = [[candi_score[over_thresh[0][dupli[j][i]],over_thresh[1][dupli[j][i]]] for i in range(len(dupli[j]))] for j in range(len(dupli))]
-    #   print (dupli_score)
-    #   dupli_clss = [[self._classes[over_thresh[1][dupli[j][kk]]] for kk in range(len(dupli[j]))] for j in range(len(dupli))]
-    #   dupli_clss_idx = np.reshape(np.concatenate([[over_thresh[1][dupli[j][kk]]+1 for kk in range(len(dupli[j]))] for j in range(len(dupli))]),[-1,1])
-    #   print (dupli_clss)
-    #   dupli_box = np.concatenate([[candi_box[over_thresh[0][dupli[j][i]],over_thresh[1][dupli[j][i]]*4:(over_thresh[1][dupli[j][i]]+1)*4] for i in range(len(dupli[j]))] for j in range(len(dupli))])
-    #   overlaps = bbox_overlaps(
-    #     np.ascontiguousarray(dupli_box, dtype=np.float),
-    #     np.ascontiguousarray(blobs['gt_boxes'][:,:4], dtype=np.float))
-    #   print ([self._classes[blobs['gt_boxes'][np.argmax(overlaps,axis=1)][i,4].astype(np.int32)-1] for i in range(len(overlaps))])
-    #   print (np.max(overlaps,axis=1))
-    #   # print (np.where(candi_score>0.3))
-    #   #
-    #   # if cfg.DEBUG:
-    #   im_to_out = (blobs['data'][0] + cfg.PIXEL_MEANS)
-    #   # im_to_out = cv2.resize(im_to_out, None, None, fx=1./blobs['im_info'][2], fy=1./blobs['im_info'][2],
-    #   #             interpolation=cv2.INTER_LINEAR)
-    #   im_to_out = im_to_out[:, :, (2, 1, 0)]
-    #   input_dets = np.concatenate([dupli_box, dupli_clss_idx], axis=1)
-    #   candi_out_boxes = np.reshape(candi_box[np.tile(over_thresh2[0], 4), np.hstack((np.multiply(4, over_thresh2[1]), np.add(np.multiply(4, over_thresh2[1]), 1),  np.add(np.multiply(4, over_thresh2[1]), 2),
-    #      np.add(np.multiply(4, over_thresh2[1]), 3)))],(over_thresh2[1].shape[0], 4), order='F')
-    #   candi_dets = np.concatenate([candi_out_boxes, np.expand_dims(np.argmax(candi_score,axis=1)+1,-1)], axis=1)
-    #   image = draw_bounding_boxes(np.expand_dims(im_to_out,0), candi_dets, blobs['im_info'])
-    #   fig = plt.figure()
-    #   ax = plt.subplot(aspect='equal')
-    #   ax.grid(False)
-    #   plt.imshow(image[0])
-    #   self.cnt += 1
-    #   fig.savefig(
-    #     '/home/blackfoot/only_eval/tf-faster-rcnn/output/vgg16/images/' +
-    #     '{0:06d}'.format(self.cnt) + str(time.strftime("%H%M%S")) + '.png')
-    #   plt.close(fig)
 
     return rpn_loss_cls, rpn_loss_box, loss_cls, loss_box, rep_gt_loss, loss
 

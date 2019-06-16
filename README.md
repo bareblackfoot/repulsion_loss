@@ -3,9 +3,9 @@ A Tensorflow implementation of [Repulsion Loss](https://arxiv.org/abs/1711.07752
 
 ### Performance
 
-#### VOC2007 Test
-
-##### mAP
+Trained with VOC0712 trainval set and tested on VOC 2007 test set.
+As stated in the paper, ResNet 101 is used.
+The crowd sets consist of objects having overlap with other object in the same category over the certain threshold.
 
 | Method | mAP | mAP on Crowd (>0.0) | mAP on Crowd (>0.1) | mAP on Crowd (>0.2) | mAP on Crowd (>0.3) | mAP on Crowd (>0.4) |
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|
@@ -94,7 +94,7 @@ If you find it useful, the ``data/cache`` folder created on my side is also shar
 4. Test with pre-trained Resnet101 models
   ```Shell
   GPU_ID=0
-  ./experiments/scripts/test_faster_rcnn.sh $GPU_ID pascal_voc_0712 res101
+  ./experiments/scripts/test_repulsionloss.sh $GPU_ID pascal_voc_0712 res101
   ```
   **Note**: If you cannot get the reported numbers (79.8 on my side), then probably the NMS function is compiled improperly, refer to [Issue 5](https://github.com/endernewton/tf-faster-rcnn/issues/5).
 
@@ -120,13 +120,13 @@ If you find it useful, the ``data/cache`` folder created on my side is also shar
 
 2. Train (and test, evaluation)
   ```Shell
-  ./experiments/scripts/train_faster_rcnn.sh [GPU_ID] [DATASET] [NET]
+  ./experiments/scripts/train_repulsionloss.sh [GPU_ID] [DATASET] [NET]
   # GPU_ID is the GPU you want to test on
   # NET in {vgg16, res50, res101, res152} is the network arch to use
-  # DATASET {pascal_voc, pascal_voc_0712, coco} is defined in train_faster_rcnn.sh
+  # DATASET {pascal_voc, pascal_voc_0712, coco} is defined in train_repulsionloss.sh
   # Examples:
-  ./experiments/scripts/train_faster_rcnn.sh 0 pascal_voc vgg16
-  ./experiments/scripts/train_faster_rcnn.sh 1 coco res101
+  ./experiments/scripts/train_repulsionloss.sh 0 pascal_voc vgg16
+  ./experiments/scripts/train_repulsionloss.sh 1 coco res101
   ```
   **Note**: Please double check you have deleted soft link to the pre-trained models before training. If you find NaNs during training, please refer to [Issue 86](https://github.com/endernewton/tf-faster-rcnn/issues/86). Also if you want to have multi-gpu support, check out [Issue 121](https://github.com/endernewton/tf-faster-rcnn/issues/121).
 
@@ -138,13 +138,13 @@ If you find it useful, the ``data/cache`` folder created on my side is also shar
 
 4. Test and evaluate
   ```Shell
-  ./experiments/scripts/test_faster_rcnn.sh [GPU_ID] [DATASET] [NET]
+  ./experiments/scripts/test_repulsionloss.sh [GPU_ID] [DATASET] [NET]
   # GPU_ID is the GPU you want to test on
   # NET in {vgg16, res50, res101, res152} is the network arch to use
-  # DATASET {pascal_voc, pascal_voc_0712, coco} is defined in test_faster_rcnn.sh
+  # DATASET {pascal_voc, pascal_voc_0712, coco} is defined in test_repulsionloss.sh
   # Examples:
-  ./experiments/scripts/test_faster_rcnn.sh 0 pascal_voc vgg16
-  ./experiments/scripts/test_faster_rcnn.sh 1 coco res101
+  ./experiments/scripts/test_repulsionloss.sh 0 pascal_voc vgg16
+  ./experiments/scripts/test_repulsionloss.sh 1 coco res101
   ```
 
 5. You can use ``tools/reval.sh`` for re-evaluation

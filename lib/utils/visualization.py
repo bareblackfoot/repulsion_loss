@@ -15,7 +15,6 @@ import PIL.ImageDraw as ImageDraw
 import PIL.ImageFont as ImageFont
 from matplotlib.font_manager import FontProperties
 import matplotlib.pyplot as plt
-from utils.myutils import classToString
 
 STANDARD_COLORS = [
     'AliceBlue', 'Chartreuse', 'Aqua', 'Aquamarine', 'Azure', 'Beige', 'Bisque',
@@ -65,29 +64,7 @@ classes = ('__background__', 'person', 'bicycle', 'car',
                 'scissors', 'teddy bear', 'hair drier', 'toothbrush')
 NUM_COLORS = len(STANDARD_COLORS)
 
-# try:
 FONT = ImageFont.truetype("/home/blackfoot/Downloads/arial.ttf", 15)
-# except IOError:
-#     FONT = ImageFont.load_default()
-def draw_paper_boxes(image, gt_boxes, thickness):
-  num_boxes = gt_boxes.shape[0]
-  gt_boxes_new = gt_boxes.copy()
-  gt_boxes_new[:,:4] = np.round(gt_boxes_new[:,:4].copy())
-  disp_image = Image.fromarray(np.uint8(image))
-  for i in range(num_boxes):
-    this_class = str(classToString(classes,int(gt_boxes_new[i, 4])))
-    color = STANDARD_COLORS[int(gt_boxes_new[i, 4]) % NUM_COLORS]
-    disp_image = _draw_single_box(disp_image,
-                                gt_boxes_new[i, 0],
-                                gt_boxes_new[i, 1],
-                                gt_boxes_new[i, 2],
-                                gt_boxes_new[i, 3],
-                                "{}".format(this_class),
-                                FONT,
-                                color=color, thickness=thickness)
-
-  image = np.array(disp_image)
-  return image
 
 def _draw_single_box(image, xmin, ymin, xmax, ymax, display_str, font, color='black', thickness=4):
   draw = ImageDraw.Draw(image)
