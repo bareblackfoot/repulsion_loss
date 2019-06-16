@@ -1,5 +1,5 @@
-# [Repulsion Loss: Detecting Pedestrians in a Crowd](https://arxiv.org/abs/1711.07752)
-A Tensorflow implementation of the Repulsion loss paper by Nuri Kim. This repository is based on the Faster R-CNN implementation available [here](https://github.com/endernewton/tf-faster-rcnn).
+# Repulsion Loss: Detecting Pedestrians in a Crowd
+A Tensorflow implementation of [Repulsion Loss](https://arxiv.org/abs/1711.07752) by Nuri Kim. This repository is based on the Faster R-CNN implementation available [here](https://github.com/endernewton/tf-faster-rcnn).
 
 ### Performance
 
