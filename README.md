@@ -70,8 +70,7 @@ If you find it useful, the ``data/cache`` folder created on my side is also shar
   ./data/scripts/fetch_faster_rcnn_models.sh
   ```
   **Note**: if you cannot download the models through the link, or you want to try more models, you can check out the following solutions and optionally update the downloading script:
-  - Another server [here](http://xinlei.sp.cs.cmu.edu/xinleic/tf-faster-rcnn/).
-  - Google drive [here](https://drive.google.com/open?id=0B1_fAEgxdnvJSmF3YUlZcHFqWTQ).
+  - Google drive [here](https://drive.google.com/open?id=1mH5r9KXASeJvh4Gd1uem8bdA_GT2_CGW).
 
 2. Create a folder and a soft link to use the pre-trained model
   ```Shell
