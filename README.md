@@ -169,33 +169,3 @@ tensorboard/[NET]/[DATASET]/default/
 tensorboard/[NET]/[DATASET]/default_val/
 ```
 
-The default number of training iterations is kept the same to the original faster RCNN for VOC 2007, however I find it is beneficial to train longer (see [report](https://arxiv.org/pdf/1702.02138.pdf) for COCO), probably due to the fact that the image batch size is one. For VOC 07+12 we switch to a 80k/110k schedule following [R-FCN](https://github.com/daijifeng001/R-FCN). Also note that due to the nondeterministic nature of the current implementation, the performance can vary a bit, but in general it should be within ~1% of the reported numbers for VOC, and ~0.2% of the reported numbers for COCO. Suggestions/Contributions are welcome.
-
-### Citation
-If you find this implementation or the analysis conducted in our report helpful, please consider citing:
-
-    @article{chen17implementation,
-        Author = {Xinlei Chen and Abhinav Gupta},
-        Title = {An Implementation of Faster RCNN with Study for Region Sampling},
-        Journal = {arXiv preprint arXiv:1702.02138},
-        Year = {2017}
-    }
-    
-Or for a formal paper, [Spatial Memory Network](https://arxiv.org/abs/1704.04224):
-
-    @article{chen2017spatial,
-      title={Spatial Memory for Context Reasoning in Object Detection},
-      author={Chen, Xinlei and Gupta, Abhinav},
-      journal={arXiv preprint arXiv:1704.04224},
-      year={2017}
-    }
-
-For convenience, here is the faster RCNN citation:
-
-    @inproceedings{renNIPS15fasterrcnn,
-        Author = {Shaoqing Ren and Kaiming He and Ross Girshick and Jian Sun},
-        Title = {Faster {R-CNN}: Towards Real-Time Object Detection
-                 with Region Proposal Networks},
-        Booktitle = {Advances in Neural Information Processing Systems ({NIPS})},
-        Year = {2015}
-    }
