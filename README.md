@@ -8,7 +8,7 @@ A Tensorflow implementation of [Repulsion Loss](https://arxiv.org/abs/1711.07752
 ##### mAP
 
 | Method | mAP | mAP on Crowd (>0.0) | mAP on Crowd (>0.1) | mAP on Crowd (>0.2) | mAP on Crowd (>0.3) |
-|:-:|:-:|:-:|
+|:-:|:-:|:-:|:-:|:-:|:-:|
 | Faster R-CNN | 79.7% | </b>72.8%</b> | 68.9% | 66.2% | 63.9% | </b>62.0%</b> |
 | Faster R-CNN + RepGT | </b>79.9%</b> | <b>72.8%</b> | <b>72.8%</b> | <b>71.4%</b> | <b>67.4%</b> | 61.6% |
 
