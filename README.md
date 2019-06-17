@@ -4,7 +4,7 @@ A Tensorflow implementation of [Repulsion Loss](https://arxiv.org/abs/1711.07752
 ### Performance
 
 Trained with VOC0712 trainval set and tested on VOC 2007 test set.
-As stated in the paper, ResNet 101 is used.
+As stated in the paper, ResNet 101 is used as a backbone network.
 The crowd sets consist of objects having overlap with other object in the same category over the certain threshold.
 
 | Method | mAP | mAP on Crowd (>0.0) | mAP on Crowd (>0.1) | mAP on Crowd (>0.2) | mAP on Crowd (>0.3) | mAP on Crowd (>0.4) |
