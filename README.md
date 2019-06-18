@@ -15,31 +15,13 @@ The crowd sets consist of images containing at least one object having overlap w
 
 ### Prerequisites
   - A basic Tensorflow installation. I used tensorflow 1.7.
-  - Python packages you might not have: `cython`, `opencv-python`, `easydict` (similar to [py-faster-rcnn](https://github.com/rbgirshick/py-faster-rcnn)). For `easydict` make sure you have the right version. I use 1.6.
+  - Python packages you might not have: `cython`, `opencv-python`, `easydict` (similar to [py-faster-rcnn](https://github.com/rbgirshick/py-faster-rcnn)).
 
 ### Installation
 1. Clone the repository
   ```Shell
   git clone https://github.com/bareblackfoot/repulsion_loss.git
   ```
-
-2. Update your -arch in setup script to match your GPU
-  ```Shell
-  cd tf-faster-rcnn/lib
-  # Change the GPU architecture (-arch) if necessary
-  gedit setup.py
-  ```
-
-  | GPU model  | Architecture |
-  | ------------- | ------------- |
-  | TitanX (Maxwell/Pascal) | sm_52 |
-  | GTX 960M | sm_50 |
-  | GTX 1080 (Ti) | sm_61 |
-  | Grid K520 (AWS g2.2xlarge) | sm_30 |
-  | Tesla K80 (AWS p2.xlarge) | sm_37 |
-
-  **Note**: You are welcome to contribute the settings on your end if you have made the code work properly on other GPUs. Also even if you are only using CPU tensorflow, GPU based code (for NMS) will be used by default, so please set **USE_GPU_NMS False** to get the correct output.
-
 
 3. Build the Cython modules
   ```Shell
@@ -60,15 +42,8 @@ The crowd sets consist of images containing at least one object having overlap w
 ### Setup data
 Please follow the instructions of py-faster-rcnn [here](https://github.com/rbgirshick/py-faster-rcnn#beyond-the-demo-installation-for-training-and-testing-models) to setup VOC and COCO datasets (Part of COCO is done). The steps involve downloading data and optionally creating soft links in the ``data`` folder. Since faster RCNN does not rely on pre-computed proposals, it is safe to ignore the steps that setup proposals.
 
-If you find it useful, the ``data/cache`` folder created on my side is also shared [here](http://ladoga.graphics.cs.cmu.edu/xinleic/tf-faster-rcnn/cache.tgz).
-
-### Demo and Test with pre-trained models
+### Test with pre-trained models
 1. Download pre-trained model
-  ```Shell
-  # Resnet101 for voc pre-trained on 07+12 set
-  ./data/scripts/fetch_faster_rcnn_models.sh
-  ```
-  **Note**: if you cannot download the models through the link, or you want to try more models, you can check out the following solutions and optionally update the downloading script:
   - Google drive [here](https://drive.google.com/open?id=1mH5r9KXASeJvh4Gd1uem8bdA_GT2_CGW).
 
 2. Create a folder and a soft link to use the pre-trained model
