@@ -1,4 +1,3 @@
-/output/*
 /data/imagenet_weights/*
 /tensorboard/*
 *.raichu

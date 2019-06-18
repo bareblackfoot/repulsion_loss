@@ -44,11 +44,15 @@ esac
 
 set +x
 if [[ ! -z  ${EXTRA_ARGS_SLUG}  ]]; then
-  NET_FINAL=output/${NET}/${TRAIN_IMDB}/${EXTRA_ARGS_SLUG}/${NET}_faster_rcnn_iter_${ITERS}.ckpt
+  NET_FINAL=output/${NET}/${TRAIN_IMDB}/${EXTRA_ARGS_SLUG}/${NET}_repulsion_loss_iter_${ITERS}.ckpt
 else
-  NET_FINAL=output/${NET}/${TRAIN_IMDB}/default/${NET}_faster_rcnn_iter_${ITERS}.ckpt
+  NET_FINAL=output/${NET}/${TRAIN_IMDB}/default/${NET}_repulsion_loss_iter_${ITERS}.ckpt
 fi
 set -x
+
+LOG="experiments/logs/test_repulsion_loss_${NET}_${TRAIN_IMDB}_${EXTRA_ARGS_SLUG}.txt.`date +'%Y-%m-%d_%H-%M-%S'`"
+exec &> >(tee -a "$LOG")
+echo Logging output to "$LOG"
 
 if [[ ! -z  ${EXTRA_ARGS_SLUG}  ]]; then
 OMP_NUM_THREADS=1  CUDA_VISIBLE_DEVICES=${GPU_ID} time python ./tools/test_net.py \
@@ -69,10 +73,6 @@ OMP_NUM_THREADS=1  CUDA_VISIBLE_DEVICES=${GPU_ID} time python ./tools/test_net.p
           ${EXTRA_ARGS}
 fi
 
-
-LOG="experiments/logs/idnet_${NET}_${TRAIN_IMDB}_${EXTRA_ARGS_SLUG}.txt.`date +'%Y-%m-%d_%H-%M-%S'`"
-exec &> >(tee -a "$LOG")
-echo Logging output to "$LOG"
 for OVERLAP_THRESH in 0 1 2 3 4
 do
   OMP_NUM_THREADS=1 CUDA_VISIBLE_DEVICES=${GPU_ID} time python ./tools/test_net.py \

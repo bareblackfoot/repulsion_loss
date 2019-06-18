@@ -8,7 +8,7 @@ from __future__ import division
 from __future__ import print_function
 
 import _init_paths
-from model.test import test_net, dpp_test_net, visualize_net, lddp_visualize_net,test_nms_overlap,test_ldpp_overlap, test_oracle, visualize_score
+from model.test import test_net
 from model.config import cfg, cfg_from_file, cfg_from_list
 from datasets.factory import get_imdb
 import argparse

@@ -45,7 +45,7 @@ case ${DATASET} in
     ;;
 esac
 
-LOG="experiments/logs/${NET}_${TRAIN_IMDB}_${EXTRA_ARGS_SLUG}_${NET}.txt.`date +'%Y-%m-%d_%H-%M-%S'`"
+LOG="experiments/logs/train_repulsion_loss_${NET}_${TRAIN_IMDB}_${EXTRA_ARGS_SLUG}_${NET}.txt.`date +'%Y-%m-%d_%H-%M-%S'`"
 exec &> >(tee -a "$LOG")
 echo Logging output to "$LOG"
 
@@ -59,7 +59,7 @@ set -x
 
 if [ ! -f ${NET_FINAL}.index ]; then
   if [[ ! -z  ${EXTRA_ARGS_SLUG}  ]]; then
-OMP_NUM_THREADS=1     CUDA_VISIBLE_DEVICES=${GPU_ID} time python ./tools/trainval_net.py \
+    OMP_NUM_THREADS=1 CUDA_VISIBLE_DEVICES=${GPU_ID} time python ./tools/trainval_net.py \
       --weight data/imagenet_weights/${NET}.ckpt \
       --imdb ${TRAIN_IMDB} \
       --imdbval ${TEST_IMDB} \
@@ -70,7 +70,7 @@ OMP_NUM_THREADS=1     CUDA_VISIBLE_DEVICES=${GPU_ID} time python ./tools/trainva
       --set ANCHOR_SCALES ${ANCHORS} ANCHOR_RATIOS ${RATIOS} \
       TRAIN.STEPSIZE ${STEPSIZE} ${EXTRA_ARGS}
   else
-OMP_NUM_THREADS=1     CUDA_VISIBLE_DEVICES=${GPU_ID} time python ./tools/trainval_net.py \
+    OMP_NUM_THREADS=1 CUDA_VISIBLE_DEVICES=${GPU_ID} time python ./tools/trainval_net.py \
       --weight data/imagenet_weights/${NET}.ckpt \
       --imdb ${TRAIN_IMDB} \
       --imdbval ${TEST_IMDB} \
@@ -82,4 +82,4 @@ OMP_NUM_THREADS=1     CUDA_VISIBLE_DEVICES=${GPU_ID} time python ./tools/trainva
   fi
 fi
 
-./experiments/scripts/test_faster_rcnn.sh $@
+./experiments/scripts/test_repulsionloss.sh $@

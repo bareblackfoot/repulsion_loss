@@ -1,14 +1,5 @@
-import numpy as np
-import seaborn as sns
-import operator
 import tensorflow as tf
-sns.set_style('darkgrid')
-sns.set_palette('muted')
-sns.set_context("notebook", font_scale=1.5,
-                rc={"lines.linewidth": 2.5})
 
-def classToString(_classes, clss):
-    return _classes[clss]
 
 def IoG(box_a, box_b):
     inter_xmin = tf.maximum(box_a[:, 0], box_b[:, 0])
