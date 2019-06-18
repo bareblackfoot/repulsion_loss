@@ -4,8 +4,8 @@ A Tensorflow implementation of [Repulsion Loss](https://arxiv.org/abs/1711.07752
 ### Performance
 
 Trained with VOC0712 trainval set and tested on VOC 2007 test set.
-As stated in the paper, ResNet 101 is used.
-The crowd sets consist of objects having overlap with other object in the same category over the certain threshold.
+As stated in the paper, ResNet 101 is used as a backbone network.
+The crowd sets consist of images containing at least one object having overlap with other object in the same category over the certain threshold.
 
 | Method | mAP | mAP on Crowd (>0.0) | mAP on Crowd (>0.1) | mAP on Crowd (>0.2) | mAP on Crowd (>0.3) | mAP on Crowd (>0.4) |
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|
@@ -14,9 +14,8 @@ The crowd sets consist of objects having overlap with other object in the same c
 
 
 ### Prerequisites
-  - A basic Tensorflow installation. The code follows **r1.2** format. If you are using r1.0, please check out the r1.0 branch to fix the slim Resnet block issue. If you are using an older version (r0.1-r0.12), please check out the r0.12 branch. While it is not required, for experimenting the original RoI pooling (which requires modification of the C++ code in tensorflow), you can check out my tensorflow [fork](https://github.com/endernewton/tensorflow) and look for ``tf.image.roi_pooling``.
+  - A basic Tensorflow installation. I used tensorflow 1.7.
   - Python packages you might not have: `cython`, `opencv-python`, `easydict` (similar to [py-faster-rcnn](https://github.com/rbgirshick/py-faster-rcnn)). For `easydict` make sure you have the right version. I use 1.6.
-  - Docker users: Since the recent upgrade, the docker image on docker hub (https://hub.docker.com/r/mbuckler/tf-faster-rcnn-deps/) is no longer valid. However, you can still build your own image by using dockerfile located at `docker` folder (cuda 8 version, as it is required by Tensorflow r1.0.) And make sure following Tensorflow installation to install and use nvidia-docker[https://github.com/NVIDIA/nvidia-docker]. Last, after launching the container, you have to build the Cython modules within the running container. 
 
 ### Installation
 1. Clone the repository
@@ -28,7 +27,7 @@ The crowd sets consist of objects having overlap with other object in the same c
   ```Shell
   cd tf-faster-rcnn/lib
   # Change the GPU architecture (-arch) if necessary
-  vim setup.py
+  gedit setup.py
   ```
 
   | GPU model  | Architecture |
@@ -81,21 +80,11 @@ If you find it useful, the ``data/cache`` folder created on my side is also shar
   ln -s ../../../data/voc_2007_trainval+voc_2012_trainval ./default
   cd ../../..
   ```
-
-3. Demo for testing on custom images
-  ```Shell
-  # at repository root
-  GPU_ID=0
-  CUDA_VISIBLE_DEVICES=${GPU_ID} ./tools/demo.py
-  ```
-  **Note**: Resnet101 testing probably requires several gigabytes of memory, so if you encounter memory capacity issues, please install it with CPU support only. Refer to [Issue 25](https://github.com/endernewton/tf-faster-rcnn/issues/25).
-
-4. Test with pre-trained Resnet101 models
+3. Test with pre-trained Resnet101 models
   ```Shell
   GPU_ID=0
   ./experiments/scripts/test_repulsionloss.sh $GPU_ID pascal_voc_0712 res101
   ```
-  **Note**: If you cannot get the reported numbers (79.8 on my side), then probably the NMS function is compiled improperly, refer to [Issue 5](https://github.com/endernewton/tf-faster-rcnn/issues/5).
 
 ### Train your own model
 1. Download pre-trained models and weights. The current code support VGG16 and Resnet V1 models. Pre-trained models are provided by slim, you can get the pre-trained models [here](https://github.com/tensorflow/models/tree/master/research/slim#pre-trained-models) and set them in the ``data/imagenet_weights`` folder. For example for VGG16 model, you can set up like:
@@ -127,7 +116,6 @@ If you find it useful, the ``data/cache`` folder created on my side is also shar
   ./experiments/scripts/train_repulsionloss.sh 0 pascal_voc vgg16
   ./experiments/scripts/train_repulsionloss.sh 1 coco res101
   ```
-  **Note**: Please double check you have deleted soft link to the pre-trained models before training. If you find NaNs during training, please refer to [Issue 86](https://github.com/endernewton/tf-faster-rcnn/issues/86). Also if you want to have multi-gpu support, check out [Issue 121](https://github.com/endernewton/tf-faster-rcnn/issues/121).
 
 3. Visualization with Tensorboard
   ```Shell
