@@ -1,5 +1,6 @@
-/data/imagenet_weights/*
-/tensorboard/*
+data/imagenet_weights/*
+tensorboard/*
+output/
 *.raichu
 *.pkl
 *.ckpt
