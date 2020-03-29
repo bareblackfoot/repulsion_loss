@@ -33,9 +33,9 @@ def parse_args():
   parser = argparse.ArgumentParser(description='Train a Fast R-CNN network')
   parser.add_argument('--cfg', dest='cfg_file',
                       help='optional config file',
-                      default="/home/blackfoot/only_eval/tf-faster-rcnn/experiments/cfgs/vgg16.yml", type=str)
+                      default="experiments/cfgs/vgg16.yml", type=str)
   parser.add_argument('--weight', dest='weight',
-                      help='initialize with pretrained model weights', default="/home/blackfoot/only_eval/tf-faster-rcnn/data/imagenet_weights/vgg16.ckpt",
+                      help='initialize with pretrained model weights', default="data/imagenet_weights/vgg16.ckpt",
                       type=str)
   parser.add_argument('--imdb', dest='imdb_name',
                       help='dataset to train on',

@@ -187,20 +187,21 @@ class Network(object):
       bbox_second_targets.set_shape([cfg.TRAIN.BATCH_SIZE, self._num_classes * 4])
       bbox_inside_weights.set_shape([cfg.TRAIN.BATCH_SIZE, self._num_classes * 4])
       bbox_second_mask.set_shape([cfg.TRAIN.BATCH_SIZE, self._num_classes * 4])
+      bbox_second_mask = tf.cast(bbox_second_mask, tf.bool)
       bbox_outside_weights.set_shape([cfg.TRAIN.BATCH_SIZE, self._num_classes * 4])
-      train_with_rep_gt = tf.cast(tf.reshape(train_with_rep_gt,[]), tf.bool)
+      train_with_rep_gt = tf.cast(tf.reshape(train_with_rep_gt, []), tf.bool)
 
       self._proposal_targets['rois'] = rois
       self._proposal_targets['labels'] = tf.to_int32(labels, name="to_int32")
       self._proposal_targets['bbox_targets'] = bbox_targets
       self._proposal_targets['bbox_outside_weights'] = bbox_outside_weights
       self._proposal_targets['bbox_second_targets'] = bbox_second_targets
-      self._proposal_targets['bbox_second_mask'] = bbox_second_mask
       self._proposal_targets['bbox_inside_weights'] = bbox_inside_weights
       self._proposal_targets['bbox_outside_weights'] = bbox_outside_weights
       self._etc['train_with_rep_gt'] = train_with_rep_gt
 
       self._score_summaries.update(self._proposal_targets)
+      self._proposal_targets['bbox_second_mask'] = bbox_second_mask
 
       return rois, roi_scores
 
@@ -263,7 +264,6 @@ class Network(object):
       axis=dim
     ))
     return loss_box
-
 
   def _rep_gt_loss(self, bbox_pred, bbox_second_targets, mask):
       stds = np.tile(np.array(cfg.TRAIN.BBOX_NORMALIZE_STDS), (self._num_classes))

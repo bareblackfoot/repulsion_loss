@@ -64,7 +64,7 @@ classes = ('__background__', 'person', 'bicycle', 'car',
                 'scissors', 'teddy bear', 'hair drier', 'toothbrush')
 NUM_COLORS = len(STANDARD_COLORS)
 
-FONT = ImageFont.truetype("/home/blackfoot/Downloads/arial.ttf", 15)
+FONT = ImageFont.truetype("data/arial.ttf", 15)
 
 def _draw_single_box(image, xmin, ymin, xmax, ymax, display_str, font, color='black', thickness=4):
   draw = ImageDraw.Draw(image)
